@@ -11,13 +11,13 @@ import java.util.Scanner;
 public class Client {
 
 	public static void main(String[] args) {
-		
+
 		Socket socket = null;
 		InputStreamReader inputStreamReader = null;
 		OutputStreamWriter outputStreamWriter = null;
 		BufferedReader bufferedReader = null;
 		BufferedWriter bufferedWriter = null;
-		
+
 		try {
 			socket = new Socket("localhost", 1234);
 			inputStreamReader = new InputStreamReader(socket.getInputStream());
@@ -28,16 +28,16 @@ public class Client {
 
 			Scanner sc = new Scanner(System.in);
 
-			while(true) {
+			while (true) {
 
 				String msgTosend = sc.nextLine();
 				bufferedWriter.write(msgTosend);
 				bufferedWriter.newLine();
 				bufferedWriter.flush();
 
-				System.out.println("Server: "+ bufferedReader.readLine());
+				System.out.println("Server: " + bufferedReader.readLine());
 
-				if(msgTosend.equalsIgnoreCase("BYE")) {
+				if (msgTosend.equalsIgnoreCase("BYE")) {
 					System.out.println("Bye!");
 					break;
 				}
@@ -62,8 +62,10 @@ public class Client {
 				if (bufferedWriter != null) {
 					bufferedWriter.close();
 				}
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
-		
+
 	}
 }
